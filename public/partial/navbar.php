@@ -36,10 +36,10 @@
                     <div class="navbar-nav mr-auto py-0">
                         <a href="index.php" class="nav-item nav-link active">Home</a>
                         <a href="cart.php" class="nav-item nav-link">Cart</a>
-                        <a href="register.php" class="nav-item nav-link">create an account</a>
+                        <a href="login.php" class="nav-item nav-link">create an account</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                        <a <?php if (!isset($_COOKIE["user_id"])) echo 'href="login.php"' ?> class="btn px-0">
+                        <a <?php echo 'href="login.php?t=login"' ?> class="btn px-0">
                             <i class="fas fa-user text-primary"></i>
 
                             <span class="badge text-secondary border border-secondary rounded-circle"

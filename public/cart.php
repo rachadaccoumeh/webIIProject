@@ -33,15 +33,22 @@ if (isset($_GET['add']) || isset($_GET['delete'])) {
     if (isset($_GET["add"])) {
         $id = $_GET["add"];
         $query = "INSERT INTO carts(user_id, product_id) VALUES ($userId,$id)";
+        $query1 = "SELECT count FROM products WHERE id=$id";
+        $count = $db->query($query1)->fetch()['count'] - 1;
+        $query2 = "UPDATE products SET count='$count' where id='$id'";
     } elseif (isset($_GET["delete"])) {
         $id = $_GET["delete"];
         $query = "DELETE FROM carts where product_id=$id";
+        $query1 = "SELECT count FROM products WHERE id=$id";
+        $count = $db->query($query1)->fetch()['count'] + 1;
+        $query2 = "UPDATE products SET count='$count' where id='$id'";
     }
     $db->query($query)->fetch();
+    $db->query($query2)->fetch();
     header("Location: cart.php");
 }
 include "partial/navbar.php";
-$productQuery = "SELECT products.* FROM products INNER JOIN carts ON products.id = carts.product_id WHERE carts.user_id = 1";
+$productQuery = "SELECT products.* FROM products INNER JOIN carts ON products.id = carts.product_id WHERE carts.user_id = $userId";
 
 include "partial/cartInfo.php";
 include "partial/footer.php";
